@@ -1,23 +1,29 @@
 package Entidade;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class Conta {
 	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	
 	private double salario;
 	private int numerodaconta;
 	private Usuario usuario;
+	private Date datacriacao;
 	
 	List<Conta>list = new ArrayList<>();
 	public Conta() {
 	}
 
-	public Conta(double salario, int numerodaconta, Usuario usuario) {
+	public Conta(double salario, int numerodaconta, Usuario usuario, Date datacriacao) {
 		this.salario = salario;
 		this.numerodaconta = numerodaconta;
 		this.usuario = usuario;
+		this.datacriacao = datacriacao;
 	}
 
 	public double getSalario() {
@@ -43,6 +49,16 @@ public class Conta {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	
+
+	public Date getDatacriacao() {
+		return datacriacao;
+	}
+
+	public void setDatacriacao(Date datacriacao) {
+		this.datacriacao = datacriacao;
 	}
 
 	@Override
@@ -86,12 +102,12 @@ public class Conta {
 	}
 	public void criarcontacomdinheiro(char n,List<Conta>list, int numerodaconta,Usuario usuario, double valor) {
 		
-		    Conta conta = new Conta(valor, numerodaconta, usuario);
+		    Conta conta = new Conta(valor, numerodaconta, usuario, new Date());
 			list.add(conta);
 			System.out.println(list);
 	}
 	public void criarcontasemdinheiro(char n,List<Conta>list, int numerodaconta,Usuario usuario, double valor) {
-		Conta conta = new Conta(0.0, numerodaconta, usuario);
+		Conta conta = new Conta(0.0, numerodaconta, usuario, new Date());
 		list.add(conta);
 		System.out.println(list);
 	}
@@ -120,7 +136,8 @@ public class Conta {
 	
 	
 	public String toString() {
-        return "Total: " + String.format("%.2f", salario) + "\n" 
+        return "Data de criação " + sdf.format(datacriacao) + "\n"
+        	 +	"Total: " + String.format("%.2f", salario) + "\n" 
 			 + "Numero da conta: " + numerodaconta + "\n"
 			 + "\n" 
 			 + "DADOS \n"   
